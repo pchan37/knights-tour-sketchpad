@@ -240,7 +240,7 @@ var flipCoords = function(coord) {
 		doneList.push(temp - 1);
 	    }
 	}else{
-	    var temp = board[knightYcor][size - 1 - knightXcor];
+	    var temp = board[knightXcor][size - 1 - knightYcor];
             board[knightXcor][size - 1 - knightYcor] = board[knightXcor][knightYcor];
             board[knightXcor][knightYcor] = temp;
             visited[index][1] = size - 1 - knightYcor;
