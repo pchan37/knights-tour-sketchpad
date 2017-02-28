@@ -8,8 +8,12 @@ _A tool to help students work out solutions to the Knight Tour problem._
 * Clear the board
 * Show possible moves
 * Will not accept invalid moves
-* Rotate or flip the board
+* Flip the board (rotate is currently not available)
 * Export drawing as an image 
+
+### Instructions
+* $ git clone https://github.com/pchan37/knights-tour-sketchpad.git
+* Open knights-tour-sketchpad/index.html in your favorite browser
 
 Framework by Haley Zeng (Stuy '17)
 Finished by PChan (Stuy '17)

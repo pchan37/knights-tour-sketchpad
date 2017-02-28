@@ -6,3 +6,9 @@
 
 2/27/17 22:04
 * Fixed bug in undo: residues of animation still remains
+
+2/27/17 22:35
+* Fixed bug with flipping boards, temporarily removed rotating board feature
+
+2/27/17 23:10
+* Fixed bug with flipping boards when two knights mirror each other
