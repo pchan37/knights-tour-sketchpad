@@ -21,15 +21,15 @@ var patchSize = 75;
 
 var board = [[-1]];
 var visited = [];
+var possibleMoves = [];
+
 
 var requestID;
 
-var drawRedBox = function(r, c){
-    ctx.fillStyle = "#ff0000";
+var drawGreenBox = function(r, c){
+    ctx.fillStyle = "#00ff00";
     ctx.fillRect(r * patchSize, c * patchSize, patchSize, patchSize);
-}
-
-var requestID;
+};
 
 var flash = function(){
     window.cancelAnimationFrame( requestID );
@@ -37,21 +37,50 @@ var flash = function(){
     var tick = 0;
     
     var drawFlash = function() {
-	if (tick == 0 || tick == 30){
 
-	    //stuff
-	    
+        var rowOffsetList = [-2, -2, -1, -1, 1, 1, 2, 2];
+	var colOffsetList = [-1, 1, -2, 2, -2, 2, -1, 1];
+        var currentRow = visited[visited.length - 1][0];
+	var currentCol = visited[visited.length - 1][1];
+	possibleMoves = [];
+	
+        for(var i = 0; i < rowOffsetList.length; i++){
+	    var rowOffset = rowOffsetList[i];
+	    var colOffset = colOffsetList[i];
+	    var newRow = currentRow + rowOffset;
+	    var newCol = currentCol + colOffset;
+            if (canPlaceHere(newRow, newCol)){
+		possibleMoves.push([newRow, newCol]);
+	    }
+	}
+	
+        for(var index = 0; index < possibleMoves.length; index++){
+	    var spot = possibleMoves[index];
+	    if (tick == 0){
+		drawGreenBox(spot[0], spot[1]);
+	    }
+	    else if (tick == 30){
+		drawBox(spot[0], spot[1]);
+	    }
 	}
 
 	tick = (tick + 1) % 60;
 	requestID = window.requestAnimationFrame(drawFlash);
-    }
+    };
     drawFlash();
-}
+};
 
 var stop = function(){
     window.cancelAnimationFrame( requestID );
-}
+};			
+
+var animation = function(){
+    if (amtPlaced.innerHTML >= 1 && amtNeeded.innerHTML >= 1){
+        flash();
+    }else{
+	stop();
+    }
+};
 
 var changeCanvasSize = function(e){
     size = parseInt(size_dropdown.options[size_dropdown.selectedIndex].value);
@@ -63,7 +92,7 @@ var changeCanvasSize = function(e){
     drawBackground();
     
     amtNeeded.innerHTML = size * size;
-}
+};
 
 var drawBox = function(r, c){
     if (r % 2 != c % 2){
@@ -73,7 +102,7 @@ var drawBox = function(r, c){
 	ctx.fillStyle = bgdColor1;
     }
     ctx.fillRect(r * patchSize, c * patchSize, patchSize, patchSize);
-}
+};
 
 var drawBackground = function(){
     ctx.clearRect(0, 0, patchSize * size, patchSize * size);
@@ -82,7 +111,7 @@ var drawBackground = function(){
 	    drawBox(i, j);
 	}
     }
-}
+};
 
 var drawKnight = function(r, c){
     var knight = new Image(patchSize, patchSize);
@@ -94,23 +123,23 @@ var drawKnight = function(r, c){
 	ctx.fillStyle = "#000000";
 	ctx.textAlign = "center";
 	ctx.fillText(board[r][c], r * patchSize + patchSize / 2 + 12, c * patchSize + patchSize / 2 + 15);
-    }
-}
+    };
+};
 
 var canPlaceHere = function(r, c){
     if (visited.length == 0)
 	return true;
-    console.log(board);
+    if (r < 0 || r >= board.length || c < 0 || c >= board[0].length)
+	return false;
     if (board[r][c] != -1)
 	return false;
-    console.log("pass1");
     var lastMove = visited[visited.length - 1];
     var diffR = Math.abs(lastMove[0] - r);
     var diffC = Math.abs(lastMove[1] - c);
     if ( (diffR == 2 && diffC == 1) || (diffR == 1 && diffC == 2) )
 	return true;
     return false;
-}
+};
 
 var place = function(e){
 
@@ -126,14 +155,16 @@ var place = function(e){
     visited.push([r, c]);
     board[r][c] = visited.length;
     amtCovered.innerHTML = visited.length;
-    checkKnight(visited.length - 1);
 
-}
-
-var checkKnight = function(i){
-    return;
-}
-
+    stop();
+    for(var index = 0; index < possibleMoves.length; index++){
+	var spot = possibleMoves[index];
+	drawBox(spot[0], spot[1]);
+    }
+    
+    animation();
+    
+};
 
 var undo = function(){
     if (visited.length == 0)
@@ -151,7 +182,7 @@ var undo = function(){
     board[r][c] = -1;
 
     amtCovered.innerHTML = visited.length; 
-}
+};
 
 var clear = function(){
     visited = [];
@@ -165,7 +196,7 @@ var clear = function(){
 	board.push(row);
     }
     drawBackground();
-}
+};
 
 
 var drawAllKnights = function(){
@@ -173,7 +204,7 @@ var drawAllKnights = function(){
 	var knight = visited[index];
 	drawKnight(knight[0], knight[1]);
     }
-}
+};
 
 //only run when board has been flipped/rotated
 var updateBgdColors = function(){
@@ -182,28 +213,28 @@ var updateBgdColors = function(){
 	bgdColor1 = bgdColor0;
 	bgdColor0 = temp;
     }
-}
+};
 
 var flipCoords = function(coord) {
     for (var index = 0; index < visited.length; index++) {
 	var knight = visited[index];
 	knight[coord] = size - 1 - knight [coord];
     }
-}
+};
 
 var flipH = function(){
     flipCoords(0);
     updateBgdColors();
     drawBackground();
     drawAllKnights();
-}
+};
 
 var flipV = function(){
     flipCoords(1);
     updateBgdColors();
     drawBackground();
     drawAllKnights();
-}
+};
 
 var rotateCoords = function(dir){
     for (var index = 0; index < visited.length; index++) {
@@ -213,21 +244,21 @@ var rotateCoords = function(dir){
 	knight[otherCoord] = knight[dir];
 	knight[dir] = size - 1 - temp;
     }
-}
+};
 
 var rotateC = function(){
     rotateCoords(0);
     updateBgdColors();
     drawBackground();
     drawAllKnights();
-}
+};
 
 var rotateCC = function(){
     rotateCoords(1);
     updateBgdColors();
     drawBackground();
     drawAllKnights();
-}
+};
 
 size_dropdown.addEventListener("click", changeCanvasSize);
 canvas.addEventListener("click", place);

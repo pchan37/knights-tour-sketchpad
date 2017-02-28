@@ -1,64 +1,64 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>The N-Queens Sketchpad</title>
- </head>
+      <title>The Knight Tour Sketchpad</title>
+  </head>
 
   <body>
-    <h1>The N-Queens Sketchpad</h1>
-    <button id="infoBtn">What is this?</button><br><br>
-    <div id="info" style="display: none">
-      <p>This is a tool for students learning backtracking and working on the <a href="https://en.wikipedia.org/wiki/Eight_queens_puzzle">N-Queens problem.</a> This sketchpad allows users to find solutions to an NxN board by hand to better understand the nature of the problem and the process of solving it.</p>
-      <p>Idea by Mr. Holmes. Coded by Haley Zeng (Stuy '17)</p>
-      <p>Last updated February 22, 2017</p>
-    </div>
-    Select size:<br>
-    <select id="dropdown">
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="5">5</option>
-      <option value="6">6</option>
-      <option value="7">7</option>
-      <option value="8">8</option>
-    </select>
-    <br>
-    <br>
-    <table>
-      <tr>
-	<td style="padding: 10px; horizontal-align: left; vertical-align:top;">
-	  <canvas height="75" width="75" style="border: 1px solid;" id="canvas"></canvas>
-	</td>
-	<td style="padding: 10px; horizontal-align: left; vertical-align:top;">
-	  <div id="amtCovered" style="display: inline-block;">0</div> out of
-	  <div id="amtNeeded" style="display: inline-block;">1</div> covered
-	  <br><br>
-	  <button id="clear">clear</button>
-	  <button id="undo">undo move</button>
-	  <br><br>
-	  <button id="flipH">flip horizontally</button>
-	  <button id="flipV">flip vertically</button>
-	  <br><br>
-	  <button id="rotateC">rotate clockwise</button>
-	  <button id="rotateCC">rotate counter-clockwise</button>
-	  <br><br>
-	  <button id="saveImg">save canvas</button>
-	  <div id="saveError" style="color: red;"></div>
-	</td>
-      </tr>
-    </table>
-    <table>
-      <tr>
-	<td id="gallery" style="display:none">
-	  <h3>Saved solutions</h3>
-	  <p>Click to open in new tab</p>
-	</td>
-      </tr>
-    </table>
-    <script src="info.js"></script>
-    <script src="draw.js"></script>
-    <script src="save.js"></script>
+      <h1>The Knight Tour Sketchpad</h1>
+      <button id="infoBtn">What is this?</button><br><br>
+      <div id="info" style="display: none">
+	  <p>This is a tool for students learning backtracking and working on the <a href="https://en.wikipedia.org/wiki/Knight's_tour">Knight Tour problem.</a> This sketchpad allows users to find solutions to an NxN board by hand to better understand the nature of the problem and the process of solving it.</p>
+	  <p>Idea by Mr. Holmes. Framework by Haley Zeng (Stuy '17). Coded by PChan (Stuy '17')</p>
+	  <p>Last updated February 27, 2017</p>
+      </div>
+      Select size:<br>
+      <select id="dropdown">
+	  <option value="1">1</option>
+	  <option value="2">2</option>
+	  <option value="3">3</option>
+	  <option value="4">4</option>
+	  <option value="5">5</option>
+	  <option value="6">6</option>
+	  <option value="7">7</option>
+	  <option value="8">8</option>
+      </select>
+      <br>
+      <br>
+      <table>
+	  <tr>
+	      <td style="padding: 10px; horizontal-align: left; vertical-align:top;">
+		  <canvas height="75" width="75" style="border: 1px solid;" id="canvas"></canvas>
+	      </td>
+	      <td style="padding: 10px; horizontal-align: left; vertical-align:top;">
+		  <div id="amtCovered" style="display: inline-block;">0</div> out of
+		  <div id="amtNeeded" style="display: inline-block;">1</div> covered
+		  <br><br>
+		  <button id="clear">clear</button>
+		  <button id="undo">undo move</button>
+		  <br><br>
+		  <button id="flipH">flip horizontally</button>
+		  <button id="flipV">flip vertically</button>
+		  <br><br>
+		  <button id="rotateC">rotate clockwise</button>
+		  <button id="rotateCC">rotate counter-clockwise</button>
+		  <br><br>
+		  <button id="saveImg">save canvas</button>
+		  <div id="saveError" style="color: red;"></div>
+	      </td>
+	  </tr>
+      </table>
+      <table>
+	  <tr>
+	      <td id="gallery" style="display:none">
+		  <h3>Saved solutions</h3>
+		  <p>Click to open in new tab</p>
+	      </td>
+	  </tr>
+      </table>
+      <script src="info.js"></script>
+      <script src="draw.js"></script>
+      <script src="save.js"></script>
   </body>
 
 </html>
