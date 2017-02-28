@@ -71,6 +71,10 @@ var flash = function(){
 };
 
 var stop = function(){
+    for(var index = 0; index < possibleMoves.length; index++){
+	var spot = possibleMoves[index];
+	drawBox(spot[0], spot[1]);
+    }
     window.cancelAnimationFrame( requestID );
 };			
 
@@ -157,10 +161,6 @@ var place = function(e){
     amtCovered.innerHTML = visited.length;
 
     stop();
-    for(var index = 0; index < possibleMoves.length; index++){
-	var spot = possibleMoves[index];
-	drawBox(spot[0], spot[1]);
-    }
     
     animation();
     
@@ -169,6 +169,9 @@ var place = function(e){
 var undo = function(){
     if (visited.length == 0)
 	return;
+
+    stop();
+
     var lastIndex = visited.length - 1;
     var lastOne = visited[lastIndex];
     var r = lastOne[0];
@@ -181,7 +184,9 @@ var undo = function(){
 
     board[r][c] = -1;
 
-    amtCovered.innerHTML = visited.length; 
+    amtCovered.innerHTML = visited.length;
+
+    flash();
 };
 
 var clear = function(){

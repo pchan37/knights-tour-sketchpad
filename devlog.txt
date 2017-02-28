@@ -1,0 +1,8 @@
+2/27/17 21:40
+* Forked Haley's Knight Tour
+
+2/27/17 21:56
+* Added green flash for spots where the next knight may go
+
+2/27/17 22:04
+* Fixed bug in undo: residues of animation still remains
